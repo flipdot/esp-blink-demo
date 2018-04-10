@@ -1,0 +1,59 @@
+#include <Arduino.h>
+#include <Adafruit_NeoPixel.h>
+#include <FastLED.h>
+
+#define NUM_LEDS 280
+#define NUM_DOTS 8
+#define DATA_PIN D3
+#define PIN D3
+#define BAUDRATE 115200
+
+#include <ESP8266WiFi.h>
+
+int state;
+int currentLED;
+int dots[NUM_DOTS];
+
+// Adafruit_NeoPixel strip = Adafruit_NeoPixel(280, PIN, NEO_GRB + NEO_KHZ800);
+CHSV hsvs[NUM_LEDS];
+CRGB leds[NUM_LEDS];
+
+void animation() {
+    static uint8_t k = 0;
+
+    for (int i=0; i<NUM_LEDS; i++) {
+        leds[i] = CHSV(255, 255, 255);
+    }
+
+
+    leds[100] = CHSV(0, 0, 0);
+    /*
+    for (int i=0; i<NUM_DOTS; i++) {
+        break;
+        int pos = dots[i];
+        int dot_color = int((float(i) / float(NUM_DOTS)) * 255);
+        leds[pos] = CHSV(dot_color, 255, 255);
+    }
+    */
+
+    k++;
+    //delay(50);
+}
+
+void setup() {
+    currentLED = 0;
+    //for (int i=0; i<NUM_LEDS; i++) {
+    //    dots[i] = random(0, NUM_LEDS - 1);
+    //}
+    FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
+    Serial.begin(BAUDRATE);
+    delay(10);
+}
+
+void loop() {
+    animation();
+    FastLED.show();
+    //currentLED += 1;
+    //currentLED %= NUM_LEDS;
+    //delay(20);
+}
