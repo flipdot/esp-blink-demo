@@ -4,7 +4,7 @@
 #include <Adafruit_NeoPixel.h>
 #include <FastLED.h>
 
-#define NUM_LEDS 280
+#define NUM_LEDS 300
 #define NUM_DOTS 5
 #define TAIL_LENGTH 10
 #define DATA_PIN D3
